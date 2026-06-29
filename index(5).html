@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Form HR-4471-B · Above Average</title>
+  <style>
+    body { font-family: Arial, sans-serif; background: #f4f4f4; margin: 0; padding: 1rem; }
+    .hw { background: #fff; max-width: 640px; margin: 0 auto; padding: 2rem 1.5rem; border: 0.5px solid #ddd; border-radius: 8px; }
+    .hdr { border: 1.5px solid #222; padding: 1rem 1.25rem 0.75rem; margin-bottom: 1.5rem; }
+    .hdr-org { font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: #666; margin: 0 0 2px; }
+    .hdr-title { font-size: 20px; font-weight: 500; margin: 0 0 4px; color: #111; }
+    .hdr-sub { font-size: 12px; color: #666; margin: 0; }
+    .hdr-stamp { font-size: 11px; color: #999; margin-top: 6px; }
+    .step { display: none; }
+    .step.active { display: block; }
+    .qbox { border: 0.5px solid #ccc; border-left: 3px solid #222; padding: 1rem 1.25rem; margin-bottom: 1rem; background: #f9f9f9; border-radius: 0 6px 6px 0; }
+    .ql { font-size: 11px; text-transform: uppercase; letter-spacing: 0.07em; color: #999; margin: 0 0 6px; }
+    .qt { font-size: 15px; font-weight: 500; margin: 0; line-height: 1.4; color: #111; }
+    .qs { font-size: 12px; color: #666; margin: 6px 0 0; }
+    .brow { display: flex; gap: 10px; margin-top: 1rem; flex-wrap: wrap; }
+    .btn { flex: 1; padding: 10px 0; font-size: 14px; font-weight: 500; border: 0.5px solid #ccc; background: #fff; color: #222; border-radius: 8px; cursor: pointer; transition: background 0.15s; min-width: 120px; }
+    .btn:hover { background: #f0f0f0; }
+    .btn.yes { border-color: #4caf50; color: #2e7d32; }
+    .btn.no  { border-color: #f44336; color: #c62828; }
+    .btn.esc { border-color: #2196f3; color: #1565c0; }
+    .trail { font-size: 11px; color: #999; margin-bottom: 1rem; padding: 0.5rem 0.75rem; border: 0.5px dashed #ddd; border-radius: 8px; line-height: 1.6; }
+    .res { border: 1.5px solid #222; padding: 1.25rem; text-align: center; border-radius: 6px; }
+    .res-stamp { font-size: 36px; font-weight: 500; letter-spacing: 0.04em; color: #222; margin: 0 0 6px; }
+    .res-sub { font-size: 13px; color: #666; margin: 0 0 16px; }
+    .res-box { border: 0.5px solid #ddd; padding: 0.75rem 1rem; text-align: left; font-size: 13px; line-height: 1.6; margin-bottom: 1rem; background: #f9f9f9; border-radius: 8px; }
+    .res-action { font-size: 12px; color: #999; margin: 0; }
+    .officer-box { border: 0.5px solid #90caf9; border-left: 3px solid #1565c0; padding: 0.75rem 1rem; background: #e3f2fd; border-radius: 0 8px 8px 0; margin-top: 0.75rem; font-size: 12px; color: #1565c0; line-height: 1.6; }
+    .reset-btn { margin-top: 1rem; font-size: 12px; color: #666; background: none; border: none; cursor: pointer; text-decoration: underline; }
+    .frow { display: flex; gap: 1rem; margin-bottom: 0.75rem; flex-wrap: wrap; }
+    .field { flex: 1; min-width: 120px; }
+    .field label { font-size: 11px; text-transform: uppercase; letter-spacing: 0.06em; color: #999; display: block; margin-bottom: 3px; }
+    .field input { width: 100%; border: none; border-bottom: 0.5px solid #ccc; background: transparent; font-size: 14px; color: #222; padding: 2px 0; outline: none; font-family: Arial, sans-serif; box-sizing: border-box; }
+    .progress { display: flex; gap: 4px; margin-bottom: 1.25rem; }
+    .progress-dot { width: 8px; height: 8px; border-radius: 50%; background: #ddd; transition: background 0.2s; }
+    .progress-dot.done { background: #888; }
+    .progress-dot.active { background: #222; }
+    .nudge { font-size: 12px; color: #999; font-style: italic; margin: 0.5rem 0 0; text-align: center; }
+  </style>
+</head>
+<body>
+<div class="hw">
+
+
+  <div class="hdr">
+    <p class="hdr-org">Above Average · Department of Human Resources · Internal Use Only</p>
+    <p class="hdr-title">Interpersonal Conflict Resolution Request</p>
+    <p class="hdr-sub">Form HR-4471-B · Please complete all sections before submission</p>
+    <div class="frow" style="margin-top:0.75rem">
+      <div class="field"><label>Name</label><input type="text" id="f-name" placeholder="Discord name"></div>
+      <div class="field"><label>Role</label><input type="text" id="f-dept" placeholder="e.g. Raider"></div>
+      <div class="field"><label>Date of incident</label><input type="text" id="f-date" placeholder="MM/DD/YYYY"></div>
+    </div>
+    <p class="hdr-stamp">By completing this form you confirm that you have read sections 1.1–9.1 of the Above Average Code of Conduct (rev. 2026).</p>
+  </div>
+
+  <div class="progress" id="progress-bar"></div>
+
+  <!-- Step 0 -->
+  <div class="step active" id="step-0">
+    <div class="qbox">
+      <p class="ql">Section 1 · Initial Assessment</p>
+      <p class="qt">Have you spoken directly to the other person about this issue?</p>
+      <p class="qs">Per HR Policy 2.1, direct communication is the preferred first step in all conflicts. Please see sections 1.1–1.4 before proceeding.</p>
+    </div>
+    <div class="brow">
+      <button class="btn yes" onclick="go(1)">Yes</button>
+      <button class="btn no"  onclick="go(2)">No</button>
+    </div>
+  </div>
+
+  <!-- Step 1 -->
+  <div class="step" id="step-1">
+    <div class="trail" id="trail-1"></div>
+    <div class="qbox">
+      <p class="ql">Section 2 · Communication Quality Review</p>
+      <p class="qt">Was it actual direct communication — not smoke signals or passive-aggressive Discord gifs?</p>
+      <p class="qs">Written communications are subject to a 10–12 week review by the HR Documentation Team.</p>
+    </div>
+    <div class="brow">
+      <button class="btn yes" onclick="go(3)">Yes</button>
+      <button class="btn no"  onclick="go(4)">No, it was a gif</button>
+    </div>
+  </div>
+
+  <!-- Step 2 -->
+  <div class="step" id="step-2">
+    <div class="trail" id="trail-2"></div>
+    <div class="qbox">
+      <p class="ql">Section 2 · Pre-Submission Checklist</p>
+      <p class="qt">Before proceeding, have you considered talking to the other person directly?</p>
+      <p class="qs">This form requires 12–15 business days to process. Talking takes approximately 3–5 minutes.</p>
+    </div>
+    <div class="brow">
+      <button class="btn yes" onclick="go(5)">I'll try that first</button>
+      <button class="btn no"  onclick="go(6)">No, I'd rather file this form</button>
+    </div>
+  </div>
+
+  <!-- Step 3 -->
+  <div class="step" id="step-3">
+    <div class="trail" id="trail-3"></div>
+    <div class="qbox">
+      <p class="ql">Section 3 · Outcome Verification</p>
+      <p class="qt">Did the other person acknowledge what you said and respond substantively?</p>
+      <p class="qs">A response of "k" or a thumbs-up emoji does not constitute a substantive response (see Policy 2.2b).</p>
+    </div>
+    <div class="brow">
+      <button class="btn yes" onclick="go(7)">Yes</button>
+      <button class="btn no"  onclick="go(8)">No</button>
+    </div>
+  </div>
+
+  <!-- Step 4 -->
+  <div class="step" id="step-4">
+    <div class="trail" id="trail-4"></div>
+    <div class="qbox">
+      <p class="ql">Section 3 · Communication Channel Remediation</p>
+      <p class="qt">We appreciate your creativity. Unfortunately, a gif is not a conversation. Would you be willing to try speaking with them directly?</p>
+      <p class="qs">Estimated wait time to reach an HR representative: 11–14 business days. A real conversation: still free, still faster.</p>
+    </div>
+    <div class="brow">
+      <button class="btn yes" onclick="go(5)">Yes, I'll talk to them properly</button>
+      <button class="btn no"  onclick="go(9)">No, gifs are my love language</button>
+    </div>
+  </div>
+
+  <!-- Step 5: RESOLVED -->
+  <div class="step" id="step-5">
+    <div class="trail" id="trail-5"></div>
+    <div class="res">
+      <p class="res-stamp">✓ RESOLVED</p>
+      <p class="res-sub">Form HR-4471-B · Outcome: Direct Resolution Initiated</p>
+      <div class="res-box">Great news! You have elected to talk to the other person directly. HR commends this decision. Please proceed to have that conversation. No further action required on our part.<br><br>This form will be filed in the <em>Resolved Pending Confirmation</em> archive (Sub-folder: "People Who Talked to Each Other Like Adults").</div>
+      <p class="res-action">If the issue persists after your conversation, please complete a new Form HR-4471-B. Officers are available if things remain stuck after multiple genuine attempts.</p>
+      <button class="reset-btn" onclick="reset()">Start a new complaint ↺</button>
+    </div>
+  </div>
+
+  <!-- Step 6 -->
+  <div class="step" id="step-6">
+    <div class="trail" id="trail-6"></div>
+    <div class="qbox">
+      <p class="ql">Section 4 · Escalation Review Panel</p>
+      <p class="qt">This form requires sign-off from your manager, their manager's mom, and a notary public. In the meantime — have you tried talking to the other person directly?</p>
+      <p class="qs">Notary appointments are available in March 2067.</p>
+    </div>
+    <div class="brow">
+      <button class="btn yes" onclick="go(5)">Fine, I'll just talk to them</button>
+      <button class="btn no"  onclick="go(10)">No, I want the notary</button>
+    </div>
+  </div>
+
+  <!-- Step 7 -->
+  <div class="step" id="step-7">
+    <div class="trail" id="trail-7"></div>
+    <div class="qbox">
+      <p class="ql">Section 4 · Resolution Confirmation</p>
+      <p class="qt">Has the conflict been resolved to your satisfaction?</p>
+      <p class="qs">If yes, please complete Form HR-4471-C (Conflict Resolution Confirmation) and Form HR-4471-D (Post-Resolution Wellness Check).</p>
+    </div>
+    <div class="brow">
+      <button class="btn yes" onclick="go(11)">Yes, we worked it out</button>
+      <button class="btn no"  onclick="go(12)">No, still unresolved</button>
+    </div>
+  </div>
+
+  <!-- Step 8 -->
+  <div class="step" id="step-8">
+    <div class="trail" id="trail-8"></div>
+    <div class="qbox">
+      <p class="ql">Section 4 · Follow-Up Communication Plan</p>
+      <p class="qt">They didn't respond how you wanted them to. That's frustrating — but one attempt isn't always enough. Would you be willing to try again, maybe at a better time or in a calmer setting?</p>
+      <p class="qs">HR's conflict mediation waitlist is currently ??? months. A second conversation would take about 10 minutes.</p>
+    </div>
+    <div class="brow">
+      <button class="btn yes" onclick="go(5)">Yes, I'll try again</button>
+      <button class="btn no"  onclick="go(13)">I've genuinely tried, still nothing</button>
+    </div>
+  </div>
+
+  <!-- Step 9 -->
+  <div class="step" id="step-9">
+    <div class="trail" id="trail-9"></div>
+    <div class="qbox">
+      <p class="ql">Section 5 · Mandatory Gif Reflection Period</p>
+      <p class="qt">To schedule a gif review, please complete Sub-Form HR-SYN-8. However, we must insist on words. Have you reconsidered a direct conversation?</p>
+      <p class="qs">The other party may not have understood your gif. Studies show 94% of workplace gifs are misinterpreted. (Source: HR, just now.)</p>
+    </div>
+    <div class="brow">
+      <button class="btn yes" onclick="go(5)">Okay, I'll use my words</button>
+      <button class="btn no"  onclick="go(9)">The gif was very clear</button>
+    </div>
+  </div>
+
+  <!-- Step 10 -->
+  <div class="step" id="step-10">
+    <div class="trail" id="trail-10"></div>
+    <div class="qbox">
+      <p class="ql">Section 5 · Notary Scheduling Sub-Form</p>
+      <p class="qt">To schedule your notary, please complete Sub-Form HR-HLS-7. Note: Sub-Form HR-HLS-7 also requires notarization. While you arrange that — have you considered talking to the other person?</p>
+      <p class="qs">Estimated time to complete notary loop: ∞</p>
+    </div>
+    <div class="brow">
+      <button class="btn yes" onclick="go(5)">I'll just talk to them</button>
+      <button class="btn no"  onclick="go(10)">I'll get another notary</button>
+    </div>
+  </div>
+
+  <!-- Step 11: CLOSED -->
+  <div class="step" id="step-11">
+    <div class="res">
+      <p class="res-stamp">✓ CLOSED</p>
+      <p class="res-sub">Form HR-4471-B · Outcome: Matter Resolved Through Direct Communication</p>
+      <div class="res-box">The conflict has been resolved through direct communication between the parties involved. This is precisely what HR Policy 2.1 recommends on page 1.<br><br>HR would like to remind everyone that this outcome was available at Step 1, approximately 47 bureaucratic hoops ago.</div>
+      <p class="res-action">Please retain this form for your records. It is legally meaningless but feels important.</p>
+      <button class="reset-btn" onclick="reset()">Start a new complaint ↺</button>
+    </div>
+  </div>
+
+  <!-- Step 12 -->
+  <div class="step" id="step-12">
+    <div class="trail" id="trail-12"></div>
+    <div class="qbox">
+      <p class="ql">Section 5 · Second Attempt Encouragement Module</p>
+      <p class="qt">So you talked, they responded, but it's still not resolved. Have you tried a follow-up conversation with a specific focus — like one issue at a time?</p>
+      <p class="qs">HR recommends the "one problem, one chat" method (Patent pending. Not really.).</p>
+    </div>
+    <div class="brow">
+      <button class="btn yes" onclick="go(5)">Worth a shot, I'll try again</button>
+      <button class="btn no"  onclick="go(13)">Yes, I've genuinely tried multiple times</button>
+    </div>
+  </div>
+
+  <!-- Step 13 -->
+  <div class="step" id="step-13">
+    <div class="trail" id="trail-13"></div>
+    <div class="qbox">
+      <p class="ql">Section 6 · Persistence Verification</p>
+      <p class="qt">Before we proceed: can you confirm you've made at least two genuine, good-faith attempts to resolve this directly — on separate occasions?</p>
+      <p class="qs">This is the last checkpoint before escalation. HR takes this seriously, and so should you.</p>
+    </div>
+    <div class="brow">
+      <button class="btn yes" onclick="go(14)">Yes — two or more attempts, genuinely tried</button>
+      <button class="btn no"  onclick="go(5)">Honestly, not yet — I'll try again first</button>
+    </div>
+  </div>
+
+  <!-- Step 14 -->
+  <div class="step" id="step-14">
+    <div class="trail" id="trail-14"></div>
+    <div class="qbox">
+      <p class="ql">Section 6 · Final Escalation Review</p>
+      <p class="qt">This matter will now be reviewed by a committee that meets quarterly. Their first recommendation will be that you *drumroll* talk to the other person directly. One last time — would you like to save everyone some time?</p>
+      <p class="qs">Next committee meeting: Q1 2027. Coffee will not be provided.</p>
+    </div>
+    <div class="brow">
+      <button class="btn yes" onclick="go(5)">Okay fine, one more try</button>
+      <button class="btn esc" onclick="escalate()">I have genuinely exhausted all options</button>
+    </div>
+    <p class="nudge">Officer escalation is available — but only if you've truly tried everything above first.</p>
+  </div>
+
+  <!-- Step 15: ESCALATED -->
+  <div class="step" id="step-15">
+    <div class="trail" id="trail-15"></div>
+    <div class="res" style="border-color: #2196f3;">
+      <p class="res-stamp" style="color: #1565c0;">⇧ ESCALATED</p>
+      <p class="res-sub">Form HR-4471-B · Outcome: Officer Assistance Requested</p>
+      <div class="res-box">You've made multiple genuine attempts to resolve this directly and it hasn't worked.<br>Oh boy, oh geeze... no worries!<br><br>Please type <strong>!hr-help</strong> in the HR-form channel and an Officer should contact you shortly.<br>Let them know what happened, how many times you've tried, etc.<br><br>‼️ <strong>If this is an emergency, please contact an Officer directly</strong> ‼️<br><br>You've done the right thing by trying first. This is the right next step!</div>
+      <div class="officer-box">
+        <strong>A note from HR:</strong> Reaching out to an Officer is not an admission of fault or a declaration of war. It means you've tried your best and need support. We will take it from here.
+      </div>
+      <div id="webhook-status"></div>
+      <p class="res-action" style="margin-top: 0.75rem;">Once the Officer reviews the matter, this form will be closed or referred for further action at their discretion.</p>
+      <button class="reset-btn" onclick="reset()">Start a new complaint ↺</button>
+    </div>
+  </div>
+
+</div>
+
+<script>
+  let answers = [];
+  let stepNum = 0;
+
+  const stepLabels = {
+    0: "Q1: Spoken to them directly?",
+    1: "Q2: Was it actual direct comms?",
+    2: "Q2: Considered talking to them?",
+    3: "Q3: Did they respond substantively?",
+    4: "Q3: Willing to try talking properly?",
+    6: "Q4: Want the notary anyway?",
+    7: "Q4: Was it resolved?",
+    8: "Q4: Willing to try again?",
+    9: "Q5: Gif reflection period...",
+    10: "Q5: Another notary loop?",
+    12: "Q5: Tried a follow-up?",
+    13: "Q6: Confirmed two genuine attempts?",
+    14: "Q6: Final committee check...",
+  };
+
+  function go(next) {
+    const curr = stepNum;
+    if (stepLabels[curr]) answers.push(stepLabels[curr]);
+    document.getElementById('step-' + curr).classList.remove('active');
+    stepNum = next;
+    const el = document.getElementById('step-' + next);
+    el.classList.add('active');
+    const trail = el.querySelector('[id^="trail-"]');
+    if (trail && answers.length) {
+      trail.innerHTML = '<strong style="font-size:11px;text-transform:uppercase;letter-spacing:0.06em;color:#999">Your path so far:</strong><br>'
+        + answers.map((a, i) => `<span style="color:#666">${i + 1}.</span> ${a}`).join('<br>');
+    }
+    updateProgress(next);
+    el.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  }
+
+  function escalate() {
+    // Record this step in the trail before moving
+    if (stepLabels[stepNum]) answers.push(stepLabels[stepNum]);
+
+    // Grab whatever the user filled in at the top
+    const name = document.getElementById('f-name').value.trim() || 'Not provided';
+    const dept = document.getElementById('f-dept').value.trim() || 'Not provided';
+    const date = document.getElementById('f-date').value.trim() || 'Not provided';
+    const pathSummary = answers.map((a, i) => `${i + 1}. ${a}`).join('\n');
+
+    // Move to the escalated screen first so the user sees it immediately
+    document.getElementById('step-' + stepNum).classList.remove('active');
+    stepNum = 15;
+    const el = document.getElementById('step-15');
+    el.classList.add('active');
+    const trail = el.querySelector('[id^="trail-"]');
+    if (trail) {
+      trail.innerHTML = '<strong style="font-size:11px;text-transform:uppercase;letter-spacing:0.06em;color:#999">Your path so far:</strong><br>'
+        + answers.map((a, i) => `<span style="color:#666">${i + 1}.</span> ${a}`).join('<br>');
+    }
+    updateProgress(15);
+    el.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+
+    // Show pending status
+    const statusEl = document.getElementById('webhook-status');
+    statusEl.className = 'notice';
+    statusEl.textContent = '‼️Please type !hr-help in Discord to notify officers directly‼️';
+    }
+
+  function updateProgress(step) {
+    const bar = document.getElementById('progress-bar');
+    const done = answers.length;
+    const total = 10;
+    bar.innerHTML = '';
+    for (let i = 0; i < total; i++) {
+      const d = document.createElement('div');
+      d.className = 'progress-dot' + (i < done ? ' done' : (i === done ? ' active' : ''));
+      bar.appendChild(d);
+    }
+  }
+
+  function reset() {
+    answers = [];
+    stepNum = 0;
+    document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
+    document.getElementById('step-0').classList.add('active');
+    document.getElementById('webhook-status').textContent = '';
+    updateProgress(0);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  updateProgress(0);
+</script>
+</body>
+</html>
